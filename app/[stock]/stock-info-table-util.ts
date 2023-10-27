@@ -36,7 +36,7 @@ export const convertToTableColumnHeaders = (data: StockInfo[]): string[] => {
   const stockDetailsRowOneData = data?.[0].data
 
   const headers = stockDetailsRowOneData?.map((sdd): string => {
-    return `${sdd.year} - Q${sdd.quarter}`
+    return `${sdd.year} Q${sdd.quarter}`
   }) as string[]
 
   const headerColumns = ['Title', ...headers]

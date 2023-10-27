@@ -49,7 +49,7 @@ export default function StockInfoTable({ stock }: { stock: string }) {
               )
             } else {
               return (
-                <TableHead key={title} className="w-[150px] text-right">
+                <TableHead key={title} className="w-[100px] text-right">
                   {title}
                 </TableHead>
               )
@@ -69,7 +69,7 @@ export default function StockInfoTable({ stock }: { stock: string }) {
                 )
               } else {
                 return (
-                  <TableCell key={index} className="w-[150px] text-right">
+                  <TableCell key={index} className="w-[100px] text-right">
                     {noDecimal(value)}
                   </TableCell>
                 )
