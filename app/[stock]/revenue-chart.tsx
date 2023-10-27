@@ -2,8 +2,9 @@
 
 import { useGetStockInfo } from '@/hooks/query/use-get-stock-info'
 import { decimalSchema } from '@/lib/validations/common'
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { generateChartData } from './revenue-chart-util'
+
 
 export default function RevenueChart({ stock }: { stock: string }) {
   const { data, isLoading } = useGetStockInfo(stock)
@@ -16,7 +17,7 @@ export default function RevenueChart({ stock }: { stock: string }) {
     )
   }
 
-  const chartData = generateChartData(data)
+  const chartData = generateChartData(data || [])
 
   return (
     <div className='w-full'>
@@ -39,9 +40,11 @@ export default function RevenueChart({ stock }: { stock: string }) {
             axisLine={false}
             tickFormatter={(value) => `${decimalSchema.parse(value)}`}
           />
-          <Bar dataKey="revenue" fill="#adfa1d" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="grossProfit" fill="#706955" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="netProfit" fill="##552cdb" radius={[4, 4, 0, 0]} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="revenue" fill="#3498db" radius={[4, 4, 0, 0]} name="Revenue" />
+          <Bar dataKey="grossProfit" fill="#1abc9c" radius={[4, 4, 0, 0]} name="Gross Profit" />
+          <Bar dataKey="netProfit" fill="##9b59b6" radius={[4, 4, 0, 0]} name="Net Profit" />
         </BarChart>
       </ResponsiveContainer>
     </div>
