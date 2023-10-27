@@ -43,16 +43,16 @@ export default function Stock({ params }: { params: { stock: string } }) {
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <h1 className='text-4xl mb-10 uppercase tracking-wider font-bold'>Nih boss, Detailnya {stock}</h1>
-      <Table>
+      <Table className='table-fixed'>
         <TableHeader>
           <TableRow>
 
             { headerColumns.map((title, index) => {
 
               if (index === 0) {
-                return <TableHead key={title} className='w-[50px]'>{title}</TableHead>;
+                return <TableHead key={title} className='w-[300px]'>{title}</TableHead>;
               } else {
-                return <TableHead key={title} className="w-[100px] text-right">{title}</TableHead>;
+                return <TableHead key={title} className="w-[150px] text-right">{title}</TableHead>;
               }
 
             }) }
@@ -65,10 +65,10 @@ export default function Stock({ params }: { params: { stock: string } }) {
 
               { row.map((value, index) => {
 
-              if (index === 0) {
-                return <TableCell key={value} className='w-[50px]'>{value}</TableCell>;
+                if (index === 0) {
+                return <TableCell key={value} className="w-[300px]">{value}</TableCell>;
               } else {
-                return <TableCell key={value} className="w-[100px] text-right">{value}</TableCell>;
+                return <TableCell key={value} className="w-[150px] text-right">{value}</TableCell>;
               }
 
               }) }
