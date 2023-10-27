@@ -9,7 +9,12 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useGetStockInfo } from '@/hooks/query/use-get-stock-info'
-import { toDecimal } from '@/lib/utils'
+import { noDecimal } from '@/lib/utils'
+import {
+  convertToTableColumnBody,
+  convertToTableColumnHeaders,
+  removeQuartersBasedOnRule,
+} from './stock-info-table-util'
 
 export default function StockInfoTable({ stock }: { stock: string }) {
   const { data, isLoading } = useGetStockInfo(stock)
@@ -25,17 +30,11 @@ export default function StockInfoTable({ stock }: { stock: string }) {
 
   // TODO - Handle undefined
 
-  const stockDetailsRowOneData = data?.[0].data
+  const filteredData = removeQuartersBasedOnRule(data!)
 
-  const headers = stockDetailsRowOneData?.map((sdd): string => {
-    return `${sdd.year} - Q${sdd.quarter}`
-  }) as string[]
+  const headerColumns = convertToTableColumnHeaders(filteredData)
 
-  const headerColumns = ['Title', ...headers]
-
-  const bodyRows = data?.map((sd) => {
-    return [sd.title, ...sd.data.map((sdd) => sdd.value)]
-  })
+  const bodyRows = convertToTableColumnBody(filteredData)
 
   return (
     <Table className="table-fixed">
@@ -71,7 +70,7 @@ export default function StockInfoTable({ stock }: { stock: string }) {
               } else {
                 return (
                   <TableCell key={index} className="w-[150px] text-right">
-                    {toDecimal(value)}
+                    {noDecimal(value)}
                   </TableCell>
                 )
               }
