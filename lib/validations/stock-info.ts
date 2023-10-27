@@ -1,10 +1,9 @@
 import { z } from 'zod'
-import { decimalSchema } from './common'
 
 export const stockInfoData = z.object({
   year: z.number(),
   quarter: z.number(),
-  value: decimalSchema,
+  value: z.number(),
 })
 
 export const stockInfoSchema = z.object({
