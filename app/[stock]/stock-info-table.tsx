@@ -65,7 +65,7 @@ export default function StockInfoTable({ stock }: { stock: string }) {
               if (index === 0) {
                 return (
                   <TableCell key={index} className="w-[300px]">
-                    {value}
+                    <span className="font-semibold">{value}</span>
                   </TableCell>
                 )
               } else {

@@ -7,7 +7,7 @@ const nextConfig = {
         destination: `${process.env.SAHAM_BACKEND_BASE_URL}/:path*`,
       },
     ];
-  },
+  }
 }
 
 module.exports = nextConfig
