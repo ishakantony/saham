@@ -1,69 +1,40 @@
+"use client";
+
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from '@/components/ui/table';
-import { getStockByName } from '@/lib/data/stock-by-name';
-
-const invoices = [
-  {
-    invoice: 'INV001',
-    paymentStatus: 'Paid',
-    totalAmount: '$250.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV002',
-    paymentStatus: 'Pending',
-    totalAmount: '$150.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV003',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$350.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV004',
-    paymentStatus: 'Paid',
-    totalAmount: '$450.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV005',
-    paymentStatus: 'Paid',
-    totalAmount: '$550.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV006',
-    paymentStatus: 'Pending',
-    totalAmount: '$200.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV007',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$300.00',
-    paymentMethod: 'Credit Card',
-  },
-]
+import { useGetStockInfo } from '@/hooks/query/use-get-stock-info';
 
 export default function Stock({ params }: { params: { stock: string } }) {
   const { stock } = params
-  const stockDetails = getStockByName();
-  const stockDetailsRowOne = stockDetails[0];
+  const { data, isLoading } = useGetStockInfo(stock)
 
-  const headerRows = ["Title", ...(stockDetailsRowOne.data.map(sdd => {
+  if (isLoading) {
+    return (
+      <main className="flex min-h-screen flex-col items-center p-24">
+      <h1 className="text-4xl mb-10 uppercase tracking-wider font-bold">
+        SABAR YE JON, LAGI NGAMBIL DETAIL BUAT SAHAM <span className='underline'>{stock}</span>...
+      </h1>
+    </main>
+    )
+  }
+
+  // TODO - Handle undefined
+
+  const stockDetailsRowOneData = data?.[0].data;
+
+  const headers = stockDetailsRowOneData?.map((sdd): string => {
     return `${sdd.year} - Q${sdd.quarter}`
-  }))]
+  }) as string[]
 
-  const bodyRows = stockDetails.map(sd => {
+  const headerColumns = ["Title", ...headers]
+
+  const bodyRows = data?.map(sd => {
 
     return [sd.title, ...(sd.data.map(sdd => sdd.value))]
 
@@ -71,12 +42,12 @@ export default function Stock({ params }: { params: { stock: string } }) {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
+      <h1 className='text-4xl mb-10 uppercase tracking-wider font-bold'>Nih boss, Detailnya {stock}</h1>
       <Table>
-        <TableCaption><h1 className='text-3xl'>{stock}</h1></TableCaption>
         <TableHeader>
           <TableRow>
 
-            { headerRows.map((title, index) => {
+            { headerColumns.map((title, index) => {
 
               if (index === 0) {
                 return <TableHead key={title} className='w-[50px]'>{title}</TableHead>;
@@ -89,7 +60,7 @@ export default function Stock({ params }: { params: { stock: string } }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {bodyRows.map((row, index) => (
+          {bodyRows?.map((row, index) => (
             <TableRow key={index}>
 
               { row.map((value, index) => {
