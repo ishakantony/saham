@@ -1,9 +1,15 @@
-import { Card } from '@/components/ui/card'
-import RevenueChart from './revenue-chart'
-import StockInfoSummary from './stock-info-summary'
-import StockInfoTable from './stock-info-table'
+import Forbidden from '@/components/forbidden';
+import { Card } from '@/components/ui/card';
+import { getServerAuthSession } from '@/server/auth';
+import RevenueChart from './revenue-chart';
+import StockInfoSummary from './stock-info-summary';
+import StockInfoTable from './stock-info-table';
 
-export default function Stock({ params }: { params: { stock: string } }) {
+export default async function Stock({ params }: { params: { stock: string } }) {
+  const session = await getServerAuthSession();
+
+  if (!session) return <Forbidden />
+  
   const { stock } = params
 
   return (
