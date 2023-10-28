@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+
+  saham-db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: saham
+      POSTGRES_PASSWORD: saham123
+      POSTGRES_DB: saham
+    volumes:
+      - saham-db-data:/var/lib/postgresql/data
+
+volumes:
+  saham-db-data:

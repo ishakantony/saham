@@ -25,6 +25,8 @@ export default function StockInfoSummary({ stock }: { stock: string }) {
           className="w-[50px]"
           src={`https://www.idx.co.id${logo}`}
           alt={logo}
+          height={50}
+          width={50}
         />
       </div>
       <Separator className="my-4" />
