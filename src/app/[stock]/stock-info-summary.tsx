@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
 
 import { api } from "@/trpc/react"
+import Image from 'next/image'
 
 export default function StockInfoSummary({ stock }: { stock: string }) {
   const { data, isLoading } = api.company.getOne.useQuery({ ticker: stock })
@@ -20,7 +21,7 @@ export default function StockInfoSummary({ stock }: { stock: string }) {
     <div>
       <div className="flex justify-between items-center">
         <h1 className="text-4xl tracking-widest font-bold">{stock}</h1>
-        <img
+        <Image
           className="w-[50px]"
           src={`https://www.idx.co.id${logo}`}
           alt={logo}

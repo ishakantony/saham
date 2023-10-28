@@ -17,7 +17,7 @@ export default function RevenueChart({ stock }: { stock: string }) {
     )
   }
 
-  const chartData = generateChartData(data || [])
+  const chartData = generateChartData(data ?? [])
 
   return (
     <div className='w-full'>

@@ -1,5 +1,5 @@
 import { QUARTER_FOUR } from '@/lib/constants/stock-info-constants'
-import { StockInfo, StockInfoData } from '@/lib/validations/stock-info'
+import type { StockInfo, StockInfoData } from '@/lib/validations/stock-info'
 
 export type BodyRow = Array<string | number>
 
@@ -41,7 +41,7 @@ export const convertToTableColumnHeaders = (data: StockInfo[]): string[] => {
 
   const headers = stockDetailsRowOneData?.map((sdd): string => {
     return `${sdd.year} Q${sdd.quarter}`
-  }) as string[]
+  }) 
 
   const headerColumns = ['Title', ...headers]
 

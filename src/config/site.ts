@@ -1,4 +1,4 @@
-import { SiteConfig } from '@/types'
+import type { SiteConfig } from '@/types/index'
 
 export const siteConfig: SiteConfig = {
   name: 'Saham AI',
