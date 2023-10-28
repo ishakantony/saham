@@ -33,7 +33,11 @@ export const removeQuartersBasedOnRule = (data: StockInfo[]): StockInfo[] => {
 }
 
 export const convertToTableColumnHeaders = (data: StockInfo[]): string[] => {
-  const stockDetailsRowOneData = data?.[0].data
+  if (data[0] === undefined) {
+    throw new Error("Cannot figure out column headers due to empty data");
+  }
+
+  const stockDetailsRowOneData = data[0].data
 
   const headers = stockDetailsRowOneData?.map((sdd): string => {
     return `${sdd.year} Q${sdd.quarter}`
