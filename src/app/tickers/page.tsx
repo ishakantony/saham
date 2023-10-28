@@ -2,11 +2,17 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 
+import Forbidden from '@/components/forbidden';
+import { getServerAuthSession } from '@/server/auth';
 import { api } from "@/trpc/server";
 
 export const dynamic = 'force-dynamic';
 
 export default async function Tickers() {
+  const session = await getServerAuthSession();
+
+  if (!session) return <Forbidden />
+
   const data = await api.ticker.getAll.query();
 
   const cards = data.map((stockName) => (
