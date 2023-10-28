@@ -47,7 +47,7 @@ export const env = createEnv({
    * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
    */
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    DATABASE_URL: process.env.POSTGRES_URL,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     SAHAM_BACKEND_BASE_URL: process.env.SAHAM_BACKEND_BASE_URL,
     NODE_ENV: process.env.NODE_ENV,
