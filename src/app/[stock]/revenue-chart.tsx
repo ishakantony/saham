@@ -1,13 +1,13 @@
 'use client'
 
-import { useGetStockInfo } from '@/hooks/query/use-get-stock-info'
 import { decimalSchema } from '@/lib/validations/common'
 import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { generateChartData } from './revenue-chart-util'
 
+import { api } from "@/trpc/react"
 
 export default function RevenueChart({ stock }: { stock: string }) {
-  const { data, isLoading } = useGetStockInfo(stock)
+  const { data, isLoading } = api.stock.getOne.useQuery({ ticker: stock })
 
   if (isLoading) {
     return (

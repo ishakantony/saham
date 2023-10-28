@@ -3,11 +3,12 @@
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
-import { useGetCompany } from '@/hooks/query/use-get-company'
 import { cn } from '@/lib/utils'
 
+import { api } from "@/trpc/react"
+
 export default function StockInfoSummary({ stock }: { stock: string }) {
-  const { data, isLoading } = useGetCompany(stock)
+  const { data, isLoading } = api.company.getOne.useQuery({ ticker: stock })
 
   if (isLoading) {
     return <p className="text-xl">Sabar ya boss, ngopi dulu aja...</p>

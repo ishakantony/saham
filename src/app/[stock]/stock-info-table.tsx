@@ -8,7 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useGetStockInfo } from '@/hooks/query/use-get-stock-info'
 import { noDecimal } from '@/lib/utils'
 import {
   convertToTableColumnBody,
@@ -16,8 +15,10 @@ import {
   removeQuartersBasedOnRule,
 } from './stock-info-table-util'
 
+import { api } from "@/trpc/react"
+
 export default function StockInfoTable({ stock }: { stock: string }) {
-  const { data, isLoading } = useGetStockInfo(stock)
+  const { data, isLoading } = api.stock.getOne.useQuery({ ticker: stock })
 
   if (isLoading) {
     return (
